@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>پرسشنامه تشخیص مشکلات مو</title>
+<style>
+body { font-family: Tahoma, sans-serif; direction: rtl; padding: 20px; background: linear-gradient(180deg,#eefaf5 0%, #ffffff 100%); }
+.container { max-width: 700px; margin: 30px auto; background: #fff; padding: 28px; border-radius: 18px; box-shadow: 0 12px 30px rgba(0,0,0,0.08); }
+header { text-align: center; margin-bottom: 10px; }
+h2 { color: #1b7a59; margin: 6px 0; font-size: 1.8rem; }
+.intro { color: #333; line-height: 1.7; }
+.section-title { color: #1b7a59; font-size: 1.1rem; font-weight: bold; margin: 20px 0 10px; padding: 8px 14px; background: #eefaf5; border-radius: 10px; border-right: 4px solid #1b7a59; }
+.form-row label { display:block; margin:12px 0; }
+input[type="text"], input[type="number"], select { width:100%; padding:12px; border-radius:10px; border:1px solid #d7eae2; }
+button { background:#1b7a59; color:#fff; border:none; padding:12px 18px; border-radius:10px; cursor:pointer; font-size:1rem; box-shadow: 0 6px 18px rgba(27,122,89,0.12); transition: transform .12s ease, box-shadow .12s ease; }
+button:hover { background:#166645; transform: translateY(-3px); box-shadow: 0 10px 25px rgba(22,102,69,0.15); }
+.question { margin-top:18px; background:linear-gradient(180deg,#fbfffd,#f2fbf7); padding:18px; border-radius:12px; box-shadow: 0 6px 18px rgba(27,122,89,0.06); }
+.question h3 { margin:0 0 8px 0; font-size:1.05rem; color:#13573f; font-family: Georgia, 'Times New Roman', serif; }
+.question .section-badge { display:inline-block; font-size:0.85rem; background:#1b7a59; color:#fff; padding:3px 10px; border-radius:20px; margin-bottom:10px; }
+label.option { display:block; margin:8px 0; cursor:pointer; }
+.result { margin-top:24px; padding:20px; background:#f1f9f5; border-radius:12px; }
+.hair-card { background:#ffffff; padding:14px; border-radius:12px; margin:12px 0; box-shadow: 0 6px 12px rgba(0,0,0,0.04); opacity:0; transform: translateY(8px); }
+.hair-card h4 { margin:0 0 8px 0; font-size:1.05rem; color:#0e5b3f; font-family: 'Georgia', serif; }
+.hair-card p { margin:6px 0; color:#333; line-height:1.6; }
+.hair-card p.warning { background:#fff7f6; border-left:4px solid #ff6b6b; padding:10px; border-radius:6px; }
+.hair-card p.products { background:#f7fff8; border-left:4px solid #23a058; padding:10px; border-radius:6px; }
+.hair-card p.note { background:#fffbf0; border-left:4px solid #f0a500; padding:10px; border-radius:6px; }
+.type-badge { display:inline-block; padding:10px 14px; border-radius:20px; background:linear-gradient(90deg,#f7fff8,#eaf6f1); border:2px solid #d9efe3; font-weight:700; color:#0b643f; margin-top:8px; font-size:1.05rem; }
+.cta-area { margin-top:18px; display:flex; flex-direction:column; gap:12px; }
+.cta-grid { display:grid; grid-template-columns: 1fr; gap:12px; }
+.cta-card { background: linear-gradient(180deg,#ffffff,#f7fff8); padding:14px; border-radius:12px; box-shadow: 0 8px 20px rgba(13,94,61,0.06); display:flex; align-items:center; gap:12px; border:1px solid #e6f3ec; opacity:0; transform: translateY(8px); }
+.cta-card .icon { width:54px; height:54px; border-radius:12px; display:flex; align-items:center; justify-content:center; background:#eaf6f1; flex-shrink:0; }
+.cta-card h5 { margin:0; font-size:1rem; color:#0e5b3f; }
+.cta-card p { margin:4px 0 0 0; color:#444; font-size:0.95rem; line-height:1.4; }
+.cta-actions { display:flex; gap:8px; margin-top:10px; }
+.cta-actions a { text-decoration:none; }
+.btn-cta-purple { background:#0088cc; color:#fff; padding:10px 14px; border-radius:10px; font-weight:700; border:none; cursor:pointer; }
+.btn-cta-green { background:#0088cc; color:#fff; padding:10px 14px; border-radius:10px; font-weight:700; border:none; cursor:pointer; }
+.btn-cta-lightblue { background:#5dade2; color:#fff; padding:10px 14px; border-radius:10px; font-weight:700; border:none; cursor:pointer; }
+@media(min-width:700px){ .cta-grid { grid-template-columns: repeat(3, 1fr); } }
+.small-note { margin-top:12px; color:#555; font-size:0.95rem; text-align:center; }
+.progress-wrap { margin-bottom:16px; }
+.progress-bar { height:6px; background:#d7eae2; border-radius:3px; overflow:hidden; }
+.progress-fill { height:100%; background:linear-gradient(90deg,#1b7a59,#2ecc71); border-radius:3px; transition:width 0.4s ease; }
+.progress-text { font-size:12px; color:#888; margin-bottom:5px; text-align:left; }
+@keyframes slideUp { from { opacity:0; transform: translateY(10px); } to { opacity:1; transform: translateY(0); } }
+.animate { animation: slideUp .45s cubic-bezier(.2,.9,.2,1) both; }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h2>🌿 پرسشنامه رایگان تشخیص مشکلات مو</h2>
+    <p class="intro">این پرسشنامه به صورت کاملاً رایگان توسط <strong>دکتر مریم موسویان</strong>، پزشک متخصص مراقبت پوست و مو ارائه می‌شود. با پاسخ به چند سوال، مشکل اصلی موهایتان را شناسایی می‌کنیم.</p>
+  </header>
+
+  <section id="form-section">
+    <div class="section-title">👤 اطلاعات اولیه</div>
+    <div class="form-row">
+      <label>نام: <input type="text" id="firstName"></label>
+      <label>نام خانوادگی: <input type="text" id="lastName"></label>
+      <label>شماره موبایل: <input type="text" id="phone"></label>
+      <label>جنسیت:
+        <select id="gender"><option value="زن">زن</option><option value="مرد">مرد</option></select>
+      </label>
+      <label>سن: <input type="number" id="age" min="1" max="120"></label>
+      <button onclick="startQuiz()">شروع پرسشنامه ←</button>
+    </div>
+  </section>
+
+  <section id="quiz-section" style="display:none;"></section>
+  <section id="result-section" style="display:none;"></section>
+</div>
+
+<script>
+/*
+الگوریتم علمی بر اساس:
+- HAIR-Q Questionnaire (Klassen et al., Journal of Cosmetic Dermatology, 2024)
+- ALTO Questionnaire (Alopecia Areata Assessment Tool, PMC 2018)
+- Telogen Effluvium diagnostic criteria (dermatology guidelines)
+- Androgenetic Alopecia BASP Classification (2024)
+- Seborrheic Dermatitis SSD International Study (PMC 2024)
+- Adherent Scalp Flaking Score (ASFS) criteria
+*/
+
+const sections = ['ریزش مو', 'ریزش مو', 'ریزش مو', 'ریزش مو', 'پوست سر و شوره', 'پوست سر و شوره', 'پوست سر و شوره', 'وضعیت کلی مو', 'وضعیت کلی مو'];
+
+const quizQuestions = [
+  {
+    section: 'بخش اول: ریزش مو',
+    q: 'میزان ریزش موت رو چطور توصیف می‌کنی؟',
+    a: [
+      'موقع شانه یا دوش ریزش زیاد دارم — بیشتر از حد معمول',
+      'کمی بیشتر از حد معمول ولی نگران‌کننده نیست',
+      'ریزش ندارم',
+      'از یه ناحیه خاص ریخته — لکه‌های بدون مو دارم',
+      'خط موم داره عقب میره یا فرق سرم پهن‌تر شده'
+    ]
+  },
+  {
+    section: 'بخش اول: ریزش مو',
+    q: 'ریزش موت از کِی شروع شده؟',
+    a: [
+      'کمتر از ۳ ماه',
+      '۳ تا ۶ ماه',
+      '۶ ماه تا یک سال',
+      'بیشتر از یک سال — تدریجی بوده',
+      'همیشه موهام کم‌پشت بوده'
+    ]
+  },
+  {
+    section: 'بخش اول: ریزش مو',
+    q: 'آیا این موارد رو در دوره ریزش تجربه کردی؟',
+    a: [
+      'استرس شدید یا بیماری در ۳ تا ۶ ماه گذشته',
+      'کاهش وزن ناگهانی یا رژیم سخت',
+      'بارداری یا بعد از زایمان (در ۱۲ ماه گذشته)',
+      'تغییر دارو، مشکل تیروئید یا کم‌خونی',
+      'هیچکدام از موارد بالا'
+    ]
+  },
+  {
+    section: 'بخش اول: ریزش مو',
+    q: 'سابقه خانوادگی ریزش مو داری؟',
+    a: [
+      'بله، از طرف پدر',
+      'بله، از طرف مادر',
+      'هر دو طرف',
+      'نه، سابقه خانوادگی ندارم',
+      'نمی‌دانم'
+    ]
+  },
+  {
+    section: 'بخش دوم: پوست سر و شوره',
+    q: 'پوست سرت رو چطور توصیف می‌کنی؟',
+    a: [
+      'چرب و براق — موهام خیلی زود کثیف میشه',
+      'خشک و کشیده — گاهی می‌سوزه',
+      'شوره سفید و پودری دارم — پخش میشه',
+      'شوره زرد و چرب دارم — می‌چسبه به سر',
+      'نرمال — مشکلی ندارم'
+    ]
+  },
+  {
+    section: 'بخش دوم: پوست سر و شوره',
+    q: 'شوره‌ات با کدوم علائم همراهه؟',
+    a: [
+      'فقط پوسته سفید — بدون خارش',
+      'خارش شدید',
+      'قرمزی و التهاب پوست سر',
+      'پوسته زرد چرب + قرمزی با هم',
+      'شوره ندارم'
+    ]
+  },
+  {
+    section: 'بخش دوم: پوست سر و شوره',
+    q: 'شوره یا خارش پوست سرت چه وقتی بدتر میشه؟',
+    a: [
+      'در فصل سرد و هوای خشک',
+      'در فصل گرم و هوای مرطوب',
+      'موقع استرس',
+      'همیشه ثابته',
+      'شوره یا خارش ندارم'
+    ]
+  },
+  {
+    section: 'بخش سوم: وضعیت کلی مو',
+    q: 'موهات بعد از شستشو چطوره؟',
+    a: [
+      'خیلی خشک، وز و الکتریکی میشه',
+      'نرم و طبیعی',
+      'بعد از چند ساعت چرب میشه',
+      'شکننده — موقع شانه زدن پاره میشه',
+      'بی‌روح، کدر و بی‌جان'
+    ]
+  },
+  {
+    section: 'بخش سوم: وضعیت کلی مو',
+    q: 'الان از چه محصولی برای مو استفاده می‌کنی؟',
+    a: [
+      'شامپو معمولی سوپرمارکت',
+      'شامپو تخصصی ضدریزش یا ضدشوره',
+      'علاوه بر شامپو، سرم یا لوسیون هم دارم',
+      'هیچ محصول خاصی ندارم',
+      'چند محصول امتحان کردم ولی جواب نداده'
+    ]
+  }
+];
+
+/*
+سیستم امتیازدهی:
+- fall: ریزش (هر چه بیشتر = ریزش شدیدتر)
+- andro: آندروژنتیک (ژنتیکی)
+- telogen: تلوژن افلوویوم (موقتی)
+- areata: آلوپسی آره‌آتا
+- dandruff_dry: شوره خشک
+- dandruff_seb: درماتیت سبوره (شوره چرب)
+- damage: آسیب‌دیدگی مو
+*/
+const scoring = [
+  // سوال 1: میزان ریزش
+  [{fall:2,andro:0,telogen:0,areata:0,dandruff_dry:0,dandruff_seb:0,damage:0},
+   {fall:1,andro:0,telogen:0,areata:0,dandruff_dry:0,dandruff_seb:0,damage:0},
+   {fall:0,andro:0,telogen:0,areata:0,dandruff_dry:0,dandruff_seb:0,damage:0},
+   {fall:2,andro:0,telogen:0,areata:3,dandruff_dry:0,dandruff_seb:0,damage:0},
+   {fall:2,andro:3,telogen:0,areata:0,dandruff_dry:0,dandruff_seb:0,damage:0}],
+  // سوال 2: مدت ریزش
+  [{fall:1,andro:0,telogen:2,areata:0,dandruff_dry:0,dandruff_seb:0,damage:0},
+   {fall:1,andro:0,telogen:2,areata:0,dandruff_dry:0,dandruff_seb:0,damage:0},
+   {fall:1,andro:1,telogen:1,areata:0,dandruff_dry:0,dandruff_seb:0,damage:0},
+   {fall:2,andro:2,telogen:0,areata:0,dandruff_dry:0,dandruff_seb:0,damage:0},
+   {fall:1,andro:2,telogen:0,areata:0,dandruff_dry:0,dandruff_seb:0,damage:0}],
+  // سوال 3: عوامل تریگر
+  [{fall:1,andro:0,telogen:3,areata:0,dandruff_dry:0,dandruff_seb:0,damage:0},
+   {fall:1,andro:0,telogen:3,areata:0,dandruff_dry:0,dandruff_seb:0,damage:0},
+   {fall:1,andro:0,telogen:3,areata:0,dandruff_dry:0,dandruff_seb:0,damage:0},
+   {fall:1,andro:0,telogen:2,areata:0,dandruff_dry:0,dandruff_seb:0,damage:0},
+   {fall:0,andro:1,telogen:0,areata:0,dandruff_dry:0,dandruff_seb:0,damage:0}],
+  // سوال 4: سابقه خانوادگی
+  [{fall:1,andro:3,telogen:0,areata:0,dandruff_dry:0,dandruff_seb:0,damage:0},
+   {fall:1,andro:3,telogen:0,areata:0,dandruff_dry:0,dandruff_seb:0,damage:0},
+   {fall:1,andro:3,telogen:0,areata:0,dandruff_dry:0,dandruff_seb:0,damage:0},
+   {fall:0,andro:0,telogen:1,areata:0,dandruff_dry:0,dandruff_seb:0,damage:0},
+   {fall:0,andro:0,telogen:0,areata:0,dandruff_dry:0,dandruff_seb:0,damage:0}],
+  // سوال 5: پوست سر
+  [{fall:0,andro:0,telogen:0,areata:0,dandruff_dry:0,dandruff_seb:2,damage:0},
+   {fall:0,andro:0,telogen:0,areata:0,dandruff_dry:2,dandruff_seb:0,damage:0},
+   {fall:0,andro:0,telogen:0,areata:0,dandruff_dry:2,dandruff_seb:0,damage:0},
+   {fall:0,andro:0,telogen:0,areata:0,dandruff_dry:0,dandruff_seb:3,damage:0},
+   {fall:0,andro:0,telogen:0,areata:0,dandruff_dry:0,dandruff_seb:0,damage:0}],
+  // سوال 6: علائم شوره
+  [{fall:0,andro:0,telogen:0,areata:0,dandruff_dry:2,dandruff_seb:0,damage:0},
+   {fall:0,andro:0,telogen:0,areata:0,dandruff_dry:1,dandruff_seb:1,damage:0},
+   {fall:0,andro:0,telogen:0,areata:0,dandruff_dry:0,dandruff_seb:2,damage:0},
+   {fall:0,andro:0,telogen:0,areata:0,dandruff_dry:0,dandruff_seb:3,damage:0},
+   {fall:0,andro:0,telogen:0,areata:0,dandruff_dry:0,dandruff_seb:0,damage:0}],
+  // سوال 7: زمان بدتر شدن شوره
+  [{fall:0,andro:0,telogen:0,areata:0,dandruff_dry:2,dandruff_seb:0,damage:0},
+   {fall:0,andro:0,telogen:0,areata:0,dandruff_dry:0,dandruff_seb:2,damage:0},
+   {fall:0,andro:0,telogen:1,areata:0,dandruff_dry:1,dandruff_seb:1,damage:0},
+   {fall:0,andro:0,telogen:0,areata:0,dandruff_dry:1,dandruff_seb:1,damage:0},
+   {fall:0,andro:0,telogen:0,areata:0,dandruff_dry:0,dandruff_seb:0,damage:0}],
+  // سوال 8: وضعیت مو بعد از شستشو
+  [{fall:0,andro:0,telogen:0,areata:0,dandruff_dry:1,dandruff_seb:0,damage:2},
+   {fall:0,andro:0,telogen:0,areata:0,dandruff_dry:0,dandruff_seb:0,damage:0},
+   {fall:0,andro:0,telogen:0,areata:0,dandruff_dry:0,dandruff_seb:2,damage:0},
+   {fall:1,andro:0,telogen:0,areata:0,dandruff_dry:0,dandruff_seb:0,damage:3},
+   {fall:1,andro:0,telogen:1,areata:0,dandruff_dry:0,dandruff_seb:0,damage:1}],
+  // سوال 9: محصولات فعلی
+  [{fall:0,andro:0,telogen:0,areata:0,dandruff_dry:0,dandruff_seb:0,damage:0},
+   {fall:0,andro:0,telogen:0,areata:0,dandruff_dry:0,dandruff_seb:0,damage:0},
+   {fall:0,andro:0,telogen:0,areata:0,dandruff_dry:0,dandruff_seb:0,damage:0},
+   {fall:0,andro:0,telogen:0,areata:0,dandruff_dry:0,dandruff_seb:0,damage:0},
+   {fall:1,andro:0,telogen:0,areata:0,dandruff_dry:1,dandruff_seb:1,damage:1}]
+];
+
+let userAnswers = [], currentQuestion = 0;
+let lastSection = '';
+
+function startQuiz(){
+  const firstName=document.getElementById('firstName').value.trim();
+  const lastName=document.getElementById('lastName').value.trim();
+  const phone=document.getElementById('phone').value.trim();
+  const age=document.getElementById('age').value;
+  if(!firstName||!lastName||!phone||!age){alert('لطفا همه اطلاعات را وارد کنید');return;}
+  document.getElementById('form-section').style.display='none';
+  showQuestion();
+}
+
+function showQuestion(){
+  if(currentQuestion>=quizQuestions.length){showResult();return;}
+  const q=quizQuestions[currentQuestion];
+  const total=quizQuestions.length;
+  const pct=Math.round(((currentQuestion+1)/total)*100);
+
+  let sectionBadge='';
+  if(q.section!==lastSection){
+    sectionBadge=`<div class="section-badge">${q.section}</div>`;
+    lastSection=q.section;
+  }
+
+  let html=`<div class="progress-wrap">
+    <div class="progress-text">سوال ${currentQuestion+1} از ${total}</div>
+    <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+  </div>
+  <div class="question">
+    ${sectionBadge}
+    <h3>${q.q}</h3>`;
+  q.a.forEach((ans,i)=>{html+=`<label class='option'><input type='radio' name='q${currentQuestion}' value='${i}'> ${ans}</label>`;});
+  html+=`<div style="margin-top:14px;display:flex;gap:10px;">`;
+  if(currentQuestion>0) html+=`<button onclick='prevQuestion()' style="background:#888">← قبلی</button>`;
+  html+=`<button onclick='nextQuestion()'>بعدی ←</button></div></div>`;
+  document.getElementById('quiz-section').innerHTML=html;
+  document.getElementById('quiz-section').style.display='block';
+
+  if(userAnswers[currentQuestion]!==undefined){
+    const r=document.querySelector(`input[name='q${currentQuestion}'][value='${userAnswers[currentQuestion]}']`);
+    if(r)r.checked=true;
+  }
+}
+
+function prevQuestion(){
+  if(currentQuestion>0){currentQuestion--;showQuestion();}
+}
+
+function nextQuestion(){
+  const radios=document.getElementsByName('q'+currentQuestion);
+  let selected=null;
+  radios.forEach(r=>{if(r.checked)selected=parseInt(r.value);});
+  if(selected===null){alert('لطفا یک گزینه انتخاب کنید');return;}
+  userAnswers[currentQuestion]=selected;
+  currentQuestion++;
+  showQuestion();
+}
+
+function showResult(){
+  document.getElementById('quiz-section').style.display='none';
+
+  let scores={fall:0,andro:0,telogen:0,areata:0,dandruff_dry:0,dandruff_seb:0,damage:0};
+  userAnswers.forEach((ansIdx,qi)=>{
+    const s=scoring[qi][ansIdx]||{};
+    Object.keys(scores).forEach(k=>{scores[k]+=(s[k]||0);});
+  });
+
+  // تشخیص مشکلات
+  const hasHairLoss=scores.fall>=2;
+  const isAndrogenic=scores.andro>=4;
+  const isTelogen=scores.telogen>=4;
+  const isAreata=scores.areata>=3;
+  const hasDandruffDry=scores.dandruff_dry>=3;
+  const hasDandruffSeb=scores.dandruff_seb>=4;
+  const hasDamage=scores.damage>=3;
+
+  // ساخت لیست مشکلات
+  let problems=[];
+  let resultCards='';
+  let badgeText='';
+
+  if(isAreata){
+    problems.push('آلوپسی آره‌آتا (احتمالی)');
+    resultCards+=`<div class='hair-card'>
+      <h4>⚠️ احتمال آلوپسی آره‌آتا</h4>
+      <p>بر اساس پاسخ‌های شما، الگوی ریزش موتون با آلوپسی آره‌آتا مطابقت دارد — ریزش سکه‌ای شکل در نواحی خاص. این یک بیماری خودایمنی است که سیستم ایمنی بدن به فولیکول‌های مویی حمله می‌کند.</p>
+      <p class='warning'>⚠️ این نوع ریزش حتماً نیاز به ویزیت تخصصی و بررسی دقیق دارد — درمان خودسرانه توصیه نمی‌شود.</p>
+      <p class='note'>📌 درمان‌های موجود شامل کورتیکواستروئید موضعی، تزریقی و در موارد شدیدتر داروهای سیستمیک است.</p>
+    </div>`;
+  }
+
+  if(isAndrogenic){
+    problems.push('ریزش آندروژنتیک (ژنتیکی)');
+    resultCards+=`<div class='hair-card'>
+      <h4>🧬 ریزش آندروژنتیک (ژنتیکی)</h4>
+      <p>الگوی ریزش و سابقه خانوادگی شما نشان‌دهنده آلوپسی آندروژنتیک است — شایع‌ترین نوع ریزش مو. در خانم‌ها معمولاً با پهن شدن خط فرق و در آقایان با عقب رفتن خط مو ظاهر می‌شود.</p>
+      <p class='warning'>⚠️ این نوع ریزش پیشرونده است و هرچه زودتر درمان شود، نتیجه بهتری دارد.</p>
+      <p class='note'>📌 درمان‌های علمی تأییدشده: مینوکسیدیل موضعی، فیناستراید (برای آقایان)، PRP و مکمل‌های تخصصی.</p>
+    </div>`;
+  }
+
+  if(isTelogen && !isAndrogenic){
+    problems.push('ریزش تلوژن افلوویوم (موقتی)');
+    resultCards+=`<div class='hair-card'>
+      <h4>🔄 ریزش تلوژن افلوویوم</h4>
+      <p>بر اساس پاسخ‌هایتان، ریزش شما احتمالاً از نوع تلوژن افلوویوم است — ریزش منتشر و موقتی که ۲ تا ۳ ماه بعد از یک رویداد (استرس، بیماری، زایمان، رژیم) اتفاق می‌افتد.</p>
+      <p class='products'>✅ خبر خوب: این نوع ریزش معمولاً خودبخود در ۶ تا ۱۲ ماه بهبود می‌یابد. با رفع عامل اصلی و تغذیه مناسب، موها برمی‌گردند.</p>
+      <p class='note'>📌 مکمل‌های بیوتین، آهن، زینک و ویتامین D در تسریع بهبودی موثرند.</p>
+    </div>`;
+  }
+
+  if(hasDandruffSeb){
+    problems.push('درماتیت سبوره (شوره چرب)');
+    resultCards+=`<div class='hair-card'>
+      <h4>🔴 درماتیت سبوره</h4>
+      <p>علائم شما — شوره زرد چرب، قرمزی و خارش — نشان‌دهنده درماتیت سبوره است. این بیماری التهابی مزمن پوست سر است که با رشد بیش از حد قارچ Malassezia در ارتباط است.</p>
+      <p class='warning'>⚠️ درماتیت سبوره با شوره معمولی فرق دارد و نیاز به درمان تخصصی دارد.</p>
+      <p class='note'>📌 درمان‌های علمی: شامپوهای حاوی کتوکونازول، زینک پیریتیون، سلنیوم سولفاید یا اسید سالیسیلیک.</p>
+    </div>`;
+  } else if(hasDandruffDry){
+    problems.push('شوره خشک');
+    resultCards+=`<div class='hair-card'>
+      <h4>❄️ شوره خشک (Pityriasis Capitis)</h4>
+      <p>شوره سفید و پودری شما نشان‌دهنده شوره خشک است که با ریزش پوسته‌های کوچک سفید مشخص می‌شود. معمولاً در هوای سرد و خشک بدتر می‌شود.</p>
+      <p class='products'>✅ برخلاف درماتیت سبوره، شوره خشک با محصولات مناسب کنترل می‌شود.</p>
+      <p class='note'>📌 شامپوهای مرطوب‌کننده، اجتناب از آب خیلی گرم و محصولات حاوی اسید سالیسیلیک موثرند.</p>
+    </div>`;
+  }
+
+  if(hasDamage){
+    problems.push('آسیب‌دیدگی و شکنندگی مو');
+    resultCards+=`<div class='hair-card'>
+      <h4>💔 آسیب‌دیدگی و شکنندگی مو</h4>
+      <p>موهای شما دچار آسیب ساختاری هستند — شکنندگی، خشکی شدید یا بی‌روحی نشانه‌های آسیب به کوتیکول مو است. این معمولاً از رنگ، حرارت زیاد، مواد شیمیایی یا کمبود تغذیه ناشی می‌شود.</p>
+      <p class='warning'>⚠️ از حرارت مستقیم، رنگ‌های شیمیایی مکرر و محصولات حاوی الکل پرهیز کنید.</p>
+      <p class='note'>📌 ماسک‌های کراتین، سرم‌های ترمیم‌کننده و محصولات حاوی پروتئین هیدرولیز شده موثرند.</p>
+    </div>`;
+  }
+
+  if(problems.length===0){
+    badgeText='موهای سالم';
+    resultCards=`<div class='hair-card'>
+      <h4>🌿 موهای شما در وضعیت خوبی هستند</h4>
+      <p>بر اساس پاسخ‌هایتان، مشکل خاصی تشخیص داده نشد. برای حفظ سلامت موها یک روتین ساده و منظم کافیه.</p>
+      <p class='products'>✅ روتین پیشنهادی: شامپو ملایم + ماسک هفتگی + سرم مو برای حفظ رطوبت.</p>
+    </div>`;
+  } else {
+    badgeText=problems.join(' + ');
+  }
+
+  const answerLabels=userAnswers.map((ansIdx,qi)=>quizQuestions[qi].a[ansIdx]);
+  const message=encodeURIComponent(`سلام! من پرسشنامه مو رو انجام دادم.\nنام: ${document.getElementById('firstName').value} ${document.getElementById('lastName').value}\nشماره: ${document.getElementById('phone').value}\nسن: ${document.getElementById('age').value}\nجنسیت: ${document.getElementById('gender').value}\nنتیجه: ${badgeText}\nجواب‌ها: ${answerLabels.join(' | ')}`);
+
+  let html=`<div class='result'>`;
+  html+=`<p class="small-note">ممنون از پاسخ شما 😊💛</p>`;
+  html+=`<h3>نتیجه بررسی موهای شما:</h3><div class='type-badge'>${badgeText}</div>`;
+  html+=resultCards;
+  html+=`<div class='hair-card'><p style="color:#555;font-size:0.9rem;">⚠️ این پرسشنامه یک ابزار غربالگری اولیه است و جایگزین ویزیت تخصصی نمی‌شود. برای تشخیص دقیق و درمان مناسب، ویزیت آنلاین توصیه می‌شود.</p></div>`;
+  html+=`<div class='actions' style="margin-top:14px;"><a href='https://ble.ir/dr_m_mosavian?text=${message}' target='_blank'><button>ارسال پاسخ‌ها به دکتر موسویان در بله</button></a></div>`;
+
+  html+=`<div class="cta-area"><div class="cta-grid">`;
+
+  html+=`<div class="cta-card"><div class="icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="#0b643f" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><h5>محتوای آموزشی پوست و مو</h5><p>برای دریافت آخرین مطالب آموزشی و معرفی محصولات ما رو دنبال کنید</p><div class="cta-actions" style="display:flex;gap:8px;"><a href="https://ble.ir/drmimskin" target="_blank" style="flex:1"><button class="btn-cta-purple" style="width:100%">کانال بله</button></a><a href="https://www.instagram.com/dr_mimskin" target="_blank" style="flex:1"><button style="background:#E1306C;color:#fff;padding:10px 14px;border-radius:10px;font-weight:700;border:none;cursor:pointer;width:100%">اینستاگرام</button></a></div></div></div>`;
+
+  html+=`<div class="cta-card"><div class="icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-5.1-1.8L3 21l1.9-4.5A8.38 8.38 0 015 11.5 8.5 8.5 0 1112 20a8.38 8.38 0 009-8.5z" stroke="#0b643f" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><h5>ویزیت آنلاین اختصاصی</h5><p>برای تشخیص دقیق و درمان مناسب موهایت ویزیت رزرو کن</p><div class="cta-actions" style="display:flex;gap:8px;"><a href="https://ble.ir/dr_m_mosavian" target="_blank" style="flex:1"><button class="btn-cta-green" style="width:100%">بله</button></a><a href="https://wa.me/message/RYIN7OY7Q74VB1" target="_blank" style="flex:1"><button style="background:#25D366;color:#fff;padding:10px 14px;border-radius:10px;font-weight:700;border:none;cursor:pointer;width:100%">واتساپ</button></a></div></div></div>`;
+
+  html+=`<div class="cta-card"><div class="icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 12h18" stroke="#0b643f" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 6h18" stroke="#0b643f" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 18h18" stroke="#0b643f" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><h5>فروشگاه محصولات</h5><p>محصولات مناسب موهایت رو از فروشگاه ما سفارش بده</p><div class="cta-actions"><a href="https://www.drmimskin.com" target="_blank"><button class="btn-cta-lightblue">فروشگاه</button></a></div></div></div>`;
+
+  html+=`</div></div></div>`;
+
+  document.getElementById('result-section').innerHTML=html;
+  document.getElementById('result-section').style.display='block';
+
+  setTimeout(()=>{
+    document.querySelectorAll('.hair-card').forEach((el,i)=>{setTimeout(()=>el.classList.add('animate'),i*120);});
+    document.querySelectorAll('.cta-card').forEach((el,i)=>{setTimeout(()=>el.classList.add('animate'),600+i*120);});
+  },50);
+}
+</script>
+</body>
+</html>
